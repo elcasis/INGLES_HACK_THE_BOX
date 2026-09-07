@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🇬🇧</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0b0f19;
+      --bg-card: #111827;
+      --bg-input: #1f293d;
+      --border-color: #1e293b;
+      --htb-green: #9fef00;
+      --htb-green-glow: rgba(159, 239, 0, 0.35);
+      --htb-cyan: #00e5ff;
+      --text-main: #f3f4f6;
+      --text-muted: #94a3b8;
+      --danger: #ff3366;
+      --warning: #ffb703;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(159, 239, 0, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(0, 229, 255, 0.05) 0%, transparent 40%);
+    }
+
+    .font-mono {
+      font-family: 'Fira Code', monospace;
+    }
+
+    /* HEADER */
+    header {
+      width: 100%;
+      max-width: 900px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 25px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--htb-green);
+      color: #000;
+      font-weight: 800;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      box-shadow: 0 0 15px var(--htb-green-glow);
+    }
+
+    .logo-title h1 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #fff;
+    }
+
+    .logo-title span {
+      color: var(--htb-green);
+    }
+
+    .stats-bar {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .stat-badge {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 6px 14px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      font-family: 'Fira Code', monospace;
+    }
+
+    .stat-badge.score { color: var(--htb-green); }
+    .stat-badge.lives { color: var(--danger); }
+    .stat-badge.level { color: var(--htb-cyan); }
+
+    /* CONTAINER */
+    .app-container {
+      width: 100%;
+      max-width: 900px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* NAVIGATION BUTTONS */
+    .nav-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .tab-btn {
+      background: var(--bg-card);
+      color: var(--text-muted);
+      border: 1px solid var(--border-color);
+      padding: 10px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .tab-btn:hover {
+      color: #fff;
+      border-color: #334155;
+    }
+
+    .tab-btn.active {
+      background: rgba(159, 239, 0, 0.1);
+      color: var(--htb-green);
+      border-color: var(--htb-green);
+    }
+
+    /* VIEW PANELS */
+    .view-panel {
+      display: none;
+      width: 100%;
+    }
+    .view-panel.active {
+      display: block;
+    }
+
+    /* GAME SCREEN */
+    .game-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      position: relative;
+    }
+
+    .game-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 1px dashed var(--border-color);
+    }
+
+    .word-progress {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+    .word-progress span {
+      color: var(--htb-green);
+      font-weight: 700;
+    }
+
+    .attempts-box {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .attempt-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #334155;
+      transition: background 0.3s;
+    }
+    .attempt-dot.active {
+      background: var(--warning);
+      box-shadow: 0 0 8px rgba(255, 183, 3, 0.6);
+    }
+    .attempt-dot.failed {
+      background: var(--danger);
+    }
+
+    .prompt-box {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .mode-indicator {
+      display: inline-block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--htb-cyan);
+      background: rgba(0, 229, 255, 0.1);
+      padding: 4px 12px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+      border: 1px solid rgba(0, 229, 255, 0.3);
+    }
+
+    .clue-word {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .voice-btn {
+      background: #1e293b;
+      border: none;
+      color: var(--htb-cyan);
+      padding: 6px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: transform 0.1s, background 0.2s;
+    }
+    .voice-btn:hover {
+      background: #334155;
+      transform: scale(1.08);
+    }
+
+    .pos-tag {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    .htb-context {
+      background: rgba(0,0,0,0.3);
+      border-left: 3px solid var(--htb-green);
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      margin: 20px auto;
+      max-width: 650px;
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      text-align: left;
+    }
+    .htb-context strong {
+      color: var(--htb-green);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    /* INPUT SECTION */
+    .input-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .input-wrapper {
+      width: 100%;
+      max-width: 500px;
+      position: relative;
+    }
+
+    .answer-input {
+      width: 100%;
+      background: var(--bg-input);
+      border: 2px solid var(--border-color);
+      padding: 14px 20px;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 1.2rem;
+      text-align: center;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .answer-input:focus {
+      border-color: var(--htb-green);
+      box-shadow: 0 0 15px var(--htb-green-glow);
+    }
+
+    .answer-input.shake {
+      animation: shake 0.4s ease-in-out;
+      border-color: var(--danger);
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-8px); }
+      40%, 80% { transform: translateX(8px); }
+    }
+
+    .submit-btn {
+      background: var(--htb-green);
+      color: #0b0f19;
+      border: none;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 12px 36px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.1s, box-shadow 0.2s, background 0.2s;
+    }
+
+    .submit-btn:hover {
+      box-shadow: 0 0 20px var(--htb-green-glow);
+      transform: translateY(-2px);
+    }
+
+    .hint-alert {
+      font-size: 0.9rem;
+      color: var(--warning);
+      margin-top: 10px;
+      min-height: 24px;
+    }
+
+    .feedback-msg {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-top: 12px;
+      min-height: 28px;
+    }
+
+    /* LEVEL MAP / SELECTOR */
+    .level-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
+      gap: 12px;
+      max-height: 600px;
+      overflow-y: auto;
+      padding-right: 8px;
+    }
+
+    .level-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      aspect-ratio: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+    }
+
+    .level-box:hover:not(.locked) {
+      border-color: var(--htb-green);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    }
+
+    .level-box.completed {
+      border-color: var(--htb-green);
+      background: rgba(159, 239, 0, 0.05);
+    }
+    .level-box.completed::after {
+      content: '✓';
+      position: absolute;
+      top: 4px;
+      right: 6px;
+      font-size: 0.75rem;
+      color: var(--htb-green);
+      font-weight: bold;
+    }
+
+    .level-box.current {
+      border-color: var(--htb-cyan);
+      box-shadow: 0 0 10px rgba(0, 229, 255, 0.4);
+    }
+
+    .level-box.locked {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .level-num {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .level-theme {
+      font-size: 0.6rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    /* DICTIONARY VIEW */
+    .dict-search {
+      width: 100%;
+      background: var(--bg-input);
+      border: 1px solid var(--border-color);
+      padding: 12px 18px;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 1rem;
+      margin-bottom: 20px;
+    }
+
+    .dict-table-wrapper {
+      max-height: 550px;
+      overflow-y: auto;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+    }
+
+    .dict-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    .dict-table th {
+      background: #162032;
+      padding: 12px 16px;
+      font-size: 0.85rem;
+      color: var(--htb-cyan);
+      text-transform: uppercase;
+      position: sticky;
+      top: 0;
+    }
+
+    .dict-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 0.9rem;
+    }
+
+    .dict-table tr:hover {
+      background: rgba(255,255,255,0.02);
+    }
+
+    /* MODAL */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+
+    .modal-overlay.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      width: 90%;
+      max-width: 480px;
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+    }
+
+    .modal-title {
+      font-size: 1.6rem;
+      margin-bottom: 12px;
+    }
+
+    .modal-title.win { color: var(--htb-green); }
+    .modal-title.lose { color: var(--danger); }
+
+    .modal-stats {
+      margin: 20px 0;
+      font-size: 1rem;
+      color: #cbd5e1;
+      line-height: 1.8;
+    }
+
+    /* SCROLLBAR */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-dark);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #25334d;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #334466;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">
+      <div class="logo-icon">H</div>
+      <div class="logo-title">
+        <h1>HTB<span>_LEXICON</span></h1>
+        <p class="font-mono" style="font-size: 0.75rem; color: var(--text-muted);">Technical English for Hack The Box</p>
+      </div>
+    </div>
+
+    <div class="stats-bar">
+      <div class="stat-badge level font-mono">
+        LVL: <strong id="header-level">01/100</strong>
+      </div>
+      <div class="stat-badge lives font-mono">
+        ❤ <span id="header-lives">3</span>
+      </div>
+      <div class="stat-badge score font-mono">
+        SCORE: <span id="header-score">0</span>
+      </div>
+      <button id="sound-toggle" class="voice-btn" title="Activar/Silenciar sonido">🔊</button>
+    </div>
+  </header>
+
+  <!-- APP CONTAINER -->
+  <div class="app-container">
+    <!-- NAVIGATION TABS -->
+    <div class="nav-tabs">
+      <button class="tab-btn active" onclick="switchTab('game')">🎯 Misión / Pantalla</button>
+      <button class="tab-btn" onclick="switchTab('levels')">🗺 100 Pantallas</button>
+      <button class="tab-btn" onclick="switchTab('dictionary')">📖 Glosario HTB</button>
+    </div>
+
+    <!-- TAB 1: GAME VIEW -->
+    <div id="game-view" class="view-panel active">
+      <div class="game-card">
+        <!-- TOP BAR -->
+        <div class="game-top">
+          <div class="word-progress font-mono">
+            PALABRA: <span id="word-index">1</span> DE <span>12</span> | PANTALLA: <span id="current-screen-name">#1 Linux Basics</span>
+          </div>
+          <div class="attempts-box">
+            <span class="font-mono" style="font-size: 0.8rem; color: var(--text-muted); margin-right: 4px;">INTENTOS:</span>
+            <div id="dot-1" class="attempt-dot active"></div>
+            <div id="dot-2" class="attempt-dot"></div>
+            <div id="dot-3" class="attempt-dot"></div>
+          </div>
+        </div>
+
+        <!-- PROMPT SECTION -->
+        <div class="prompt-box">
+          <div id="mode-badge" class="mode-indicator font-mono">Traduce al ESPAÑOL</div>
+          
+          <div class="clue-word font-mono">
+            <span id="target-clue">---</span>
+            <button id="audio-clue-btn" class="voice-btn" title="Escuchar pronunciación">🔊</button>
+          </div>
+          <div id="pos-info" class="pos-tag">[noun / sustantivo]</div>
+
+          <div class="htb-context">
+            <strong>Contexto en Hack The Box:</strong>
+            <p id="context-sentence">"Execute command to list files."</p>
+            <p id="context-trans" style="font-size: 0.8rem; color: #94a3b8; margin-top: 4px;">"Ejecuta el comando para listar archivos."</p>
+          </div>
+
+          <div id="hint-text" class="hint-alert font-mono"></div>
+        </div>
+
+        <!-- INPUT SECTION -->
+        <div class="input-section">
+          <div class="input-wrapper">
+            <input 
+              type="text" 
+              id="user-input" 
+              class="answer-input font-mono" 
+              placeholder="Escribe aquí tu respuesta..." 
+              autocomplete="off" 
+              autofocus
+            >
+          </div>
+          <button id="submit-btn" class="submit-btn font-mono" onclick="checkAnswer()">VERIFICAR [ENTER]</button>
+          <div id="feedback-text" class="feedback-msg font-mono"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: 100 LEVELS SELECTOR -->
+    <div id="levels-view" class="view-panel">
+      <div class="game-card">
+        <h2 style="font-size: 1.2rem; margin-bottom: 8px;">Matriz de 100 Pantallas (12 Palabras por Pantalla)</h2>
+        <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px;">
+          Completa cada nivel para desbloquear el siguiente. Todas las pantallas están orientadas a técnicas, herramientas y conceptos reales de Hack The Box.
+        </p>
+        <div id="levels-grid" class="level-grid font-mono">
+          <!-- Injected via JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: DICTIONARY / GLOSSARY -->
+    <div id="dictionary-view" class="view-panel">
+      <div class="game-card">
+        <h2 style="font-size: 1.2rem; margin-bottom: 12px;">Glosario Técnico de Ciberseguridad</h2>
+        <input 
+          type="text" 
+          id="dict-search" 
+          class="dict-search font-mono" 
+          placeholder="Buscar palabra en inglés o español (ej: payload, spawn, reverse shell)..." 
+          oninput="filterDictionary()"
+        >
+        <div class="dict-table-wrapper">
+          <table class="dict-table font-mono">
+            <thead>
+              <tr>
+                <th>Nivel</th>
+                <th>Inglés</th>
+                <th>Español</th>
+                <th>Tipo</th>
+                <th>Voz</th>
+              </tr>
+            </thead>
+            <tbody id="dict-tbody">
+              <!-- Injected via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL COMPLETION / GAME OVER -->
+  <div id="modal-screen" class="modal-overlay">
+    <div class="modal-box">
+      <h2 id="modal-title" class="modal-title win font-mono">¡PANTALLA COMPLETADA!</h2>
+      <div id="modal-stats" class="modal-stats font-mono">
+        Puntuación de Pantalla: +1200<br>
+        Aciertos perfectos: 10/12<br>
+        Vidas restantes: 3
+      </div>
+      <button id="modal-btn" class="submit-btn font-mono" onclick="closeModal()">SIGUIENTE PANTALLA</button>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT GAME ENGINE & DATABASE -->
+  <script>
+    /* ============================================================
+       1. SYNTHESIZED SOUND EFFECTS (Web Audio API)
+       ============================================================ */
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    let audioCtx = null;
+    let soundEnabled = true;
+
+    function initAudio() {
+      if (!audioCtx) audioCtx = new AudioContext();
+    }
+
+    function playTone(freq, type, duration, delay = 0) {
+      if (!soundEnabled) return;
+      try {
+        initAudio();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime + delay);
+        gain.gain.setValueAtTime(0.15, audioCtx.currentTime + delay);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + delay + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(audioCtx.currentTime + delay);
+        osc.stop(audioCtx.currentTime + delay + duration);
+      } catch (e) {}
+    }
+
+    function soundSuccess() {
+      playTone(523.25, 'sine', 0.1, 0);     // C5
+      playTone(659.25, 'sine', 0.15, 0.08); // E5
+      playTone(783.99, 'sine', 0.25, 0.16); // G5
+    }
+
+    function soundError() {
+      playTone(220, 'sawtooth', 0.15, 0);
+      playTone(180, 'sawtooth', 0.25, 0.1);
+    }
+
+    function soundLevelUp() {
+      playTone(440, 'triangle', 0.1, 0);
+      playTone(554.37, 'triangle', 0.1, 0.08);
+      playTone(659.25, 'triangle', 0.1, 0.16);
+      playTone(880, 'triangle', 0.35, 0.24);
+    }
+
+    function soundGameOver() {
+      playTone(300, 'sawtooth', 0.2, 0);
+      playTone(250, 'sawtooth', 0.2, 0.18);
+      playTone(200, 'sawtooth', 0.4, 0.36);
+    }
+
+    // Toggle Sound Button
+    const soundToggle = document.getElementById('sound-toggle');
+    soundToggle.addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+      soundToggle.textContent = soundEnabled ? '🔊' : '🔇';
+    });
+
+    /* ============================================================
+       2. TEXT-TO-SPEECH (Browser Native SpeechSynthesis)
+       ============================================================ */
+    function speakEnglish(text) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'en-US';
+        utterance.rate = 0.9;
+        window.speechSynthesis.speak(utterance);
+      }
+    }
+
+    document.getElementById('audio-clue-btn').addEventListener('click', () => {
+      const word = currentQuestion.word;
+      speakEnglish(word.en);
+    });
+
+    /* ============================================================
+       3. VOCABULARY GENERATION ENGINE (100 LEVELS x 12 WORDS = 1200)
+       Specially tailored for Hack The Box & Cybersecurity
+       ============================================================ */
+    
+    // 10 Core Modules with 12 distinct entries each to seed and modulate
+    const baseCurriculum = [
+      // 1-10: Linux Basics & Command Line
+      {
+        theme: "Linux Core & Bash",
+        words: [
+          { en: "pipe", es: "tubería", alt: ["tuberia"], pos: "noun", exEn: "Redirect output using a pipe.", exEs: "Redirige la salida usando una tubería.", hint: "Conecta la salida de un comando con la entrada de otro (|)." },
+          { en: "redirection", es: "redirección", alt: ["redireccion"], pos: "noun", exEn: "Use stdout redirection to write to a file.", exEs: "Usa la redirección de salida estándar para escribir en un archivo.", hint: "Símbolos > o >> para enviar salida a archivos." },
+          { en: "permission", es: "permiso", alt: ["permisos"], pos: "noun", exEn: "Check file permission with ls -la.", exEs: "Verifica el permiso del archivo con ls -la.", hint: "Lectura, escritura o ejecución (rwx)." },
+          { en: "ownership", es: "propiedad", alt: ["propietario"], pos: "noun", exEn: "Change file ownership using chown.", exEs: "Cambia la propiedad del archivo usando chown.", hint: "A quién pertenece el archivo o grupo." },
+          { en: "process", es: "proceso", alt: ["procesos"], pos: "noun", exEn: "Kill the hanging process.", exEs: "Mata el proceso colgado.", hint: "Programa en ejecución en memoria (PID)." },
+          { en: "daemon", es: "demonio", alt: ["servicio"], pos: "noun", exEn: "SSH daemon is running in background.", exEs: "El demonio SSH se ejecuta en segundo plano.", hint: "Servicio que corre en background en Linux." },
+          { en: "mount", es: "montar", alt: ["montaje"], pos: "verb", exEn: "Mount the NFS share.", exEs: "Monta el recurso compartido NFS.", hint: "Hacer accesible un sistema de archivos o disco." },
+          { en: "wildcard", es: "comodín", alt: ["comodin"], pos: "noun", exEn: "Tar wildcard injection vulnerability.", exEs: "Vulnerabilidad de inyección con comodín en tar.", hint: "Caracteres como * o ? que representan texto." },
+          { en: "environment variable", es: "variable de entorno", alt: ["variables de entorno"], pos: "noun", exEn: "Check the PATH environment variable.", exEs: "Revisa la variable de entorno PATH.", hint: "Valores dinámicos como $PATH o $USER." },
+          { en: "socket", es: "socket", alt: ["enchufe de red"], pos: "noun", exEn: "Inspect open UNIX domain sockets.", exEs: "Inspecciona sockets de dominio UNIX abiertos.", hint: "Punto final de comunicación bidireccional." },
+          { en: "kernel", es: "núcleo", alt: ["nucleo", "kernel"], pos: "noun", exEn: "Check kernel version for dirty cow exploit.", exEs: "Revisa la versión del núcleo para el exploit dirty cow.", hint: "El corazón del sistema operativo." },
+          { en: "crontab", es: "tarea programada", alt: ["programador de tareas", "crontab"], pos: "noun", exEn: "Inspect crontab for scheduled tasks.", exEs: "Inspecciona el crontab en busca de tareas programadas.", hint: "Archivo de configuración para tareas cron periódicas." }
+        ]
+      },
+      // 11-20: Networking & Protocols
+      {
+        theme: "Redes y Protocolos",
+        words: [
+          { en: "handshake", es: "apretón de manos", alt: ["apreton de manos", "negociacion", "handshake"], pos: "noun", exEn: "TCP three-way handshake was intercepted.", exEs: "El apretón de manos de tres vías TCP fue interceptado.", hint: "Proceso de sincronización SYN, SYN-ACK, ACK." },
+          { en: "subnet", es: "subred", alt: ["sub-red"], pos: "noun", exEn: "Scan the internal /24 subnet.", exEs: "Escanea la subred interna /24.", hint: "Subdivisión lógica de una red IP." },
+          { en: "gateway", es: "puerta de enlace", alt: ["pasarela", "gateway"], pos: "noun", exEn: "Route traffic through default gateway.", exEs: "Enruta el tráfico a través de la puerta de enlace por defecto.", hint: "Dispositivo que conecta dos redes distintas." },
+          { en: "packet", es: "paquete", alt: ["paquetes"], pos: "noun", exEn: "Capture network packet with Wireshark.", exEs: "Captura el paquete de red con Wireshark.", hint: "Unidad fundamental de datos enviada por red." },
+          { en: "broadcast", es: "difusión", alt: ["difusion", "transmision"], pos: "noun", exEn: "Send ARP broadcast request.", exEs: "Envía una solicitud de difusión ARP.", hint: "Transmisión enviada a todos los hosts de la red." },
+          { en: "payload", es: "carga útil", alt: ["carga util", "payload"], pos: "noun", exEn: "The exploit delivers a malicious payload.", exEs: "El exploit entrega una carga útil maliciosa.", hint: "Los datos o código que realmente ejecuta el atacante." },
+          { en: "firewall", es: "cortafuegos", alt: ["cortafuego", "firewall"], pos: "noun", exEn: "Bypass firewall with fragmented packets.", exEs: "Evade el cortafuegos con paquetes fragmentados.", hint: "Sistema que filtra el tráfico de red según reglas." },
+          { en: "proxy", es: "servidor intermediario", alt: ["proxy", "intermediario"], pos: "noun", exEn: "Configure Burp Suite as HTTP proxy.", exEs: "Configura Burp Suite como servidor intermediario HTTP.", hint: "Intermediario entre el cliente y el servidor." },
+          { en: "routing", es: "enrutamiento", alt: ["ruteo"], pos: "noun", exEn: "Inspect the kernel routing table.", exEs: "Inspecciona la tabla de enrutamiento del núcleo.", hint: "Proceso de seleccionar caminos en una red." },
+          { en: "latency", es: "latencia", alt: ["retraso"], pos: "noun", exEn: "High latency detected during port scan.", exEs: "Alta latencia detectada durante el escaneo de puertos.", hint: "Tiempo de demora en la transmisión de un paquete." },
+          { en: "throughput", es: "rendimiento", alt: ["tasa de transferencia"], pos: "noun", exEn: "Network throughput dropped.", exEs: "El rendimiento de la red cayó.", hint: "Cantidad de datos procesados por unidad de tiempo." },
+          { en: "tunneling", es: "tunelización", alt: ["tunelizacion", "tunelamiento"], pos: "noun", exEn: "SSH tunneling allows port forwarding.", exEs: "La tunelización SSH permite el reenvío de puertos.", hint: "Encapsular un protocolo dentro de otro." }
+        ]
+      },
+      // 21-30: Reconnaissance & Scanning
+      {
+        theme: "Reconocimiento y Fuzzing",
+        words: [
+          { en: "enumerate", es: "enumerar", alt: ["listar"], pos: "verb", exEn: "Enumerate active SMB shares on the target.", exEs: "Enumera los recursos compartidos SMB activos en el objetivo.", hint: "Recopilar detalles específicos y listar servicios." },
+          { en: "footprinting", es: "recopilación de huella", alt: ["huella", "footprinting"], pos: "noun", exEn: "Passive footprinting using Google dorks.", exEs: "Recopilación pasiva de huella usando Google dorks.", hint: "Fase de recolección de información sobre la víctima." },
+          { en: "banner grabbing", es: "captura de cabecera", alt: ["captura de banner", "banner grabbing"], pos: "noun", exEn: "Perform banner grabbing with netcat.", exEs: "Realiza captura de cabecera con netcat.", hint: "Obtener versión de un servicio al conectarse a su puerto." },
+          { en: "fuzzing", es: "pruebas de fuzzing", alt: ["fuzzing", "pruebas aleatorias"], pos: "noun", exEn: "Run directory fuzzing with ffuf.", exEs: "Ejecuta pruebas de fuzzing de directorios con ffuf.", hint: "Enviar entradas masivas o inesperadas para buscar fallos o rutas." },
+          { en: "wordlist", es: "lista de palabras", alt: ["diccionario", "lista"], pos: "noun", exEn: "Use rockyou wordlist for brute forcing.", exEs: "Usa la lista de palabras rockyou para fuerza bruta.", hint: "Archivo con miles de contraseñas o rutas (diccionario)." },
+          { en: "fingerprinting", es: "identificación de huella digital", alt: ["identificacion", "fingerprinting"], pos: "noun", exEn: "OS fingerprinting reveals Windows Server 2019.", exEs: "La identificación de huella digital revela Windows Server 2019.", hint: "Determinar el sistema operativo o versión exacta." },
+          { en: "crawler", es: "rastreador web", alt: ["rastreador", "crawler", "arana"], pos: "noun", exEn: "The crawler mapped all hidden links.", exEs: "El rastreador web mapeó todos los enlaces ocultos.", hint: "Bot que navega automáticamente siguiendo hipervínculos." },
+          { en: "subdomain", es: "subdominio", alt: ["subdominios"], pos: "noun", exEn: "Enumerate virtual hosts and subdomain names.", exEs: "Enumera hosts virtuales y nombres de subdominio.", hint: "Prefijo de un dominio (ej: admin.target.htb)." },
+          { en: "probe", es: "sondear", alt: ["sonda", "probar"], pos: "verb", exEn: "Probe the UDP ports with nmap.", exEs: "Sondea los puertos UDP con nmap.", hint: "Enviar paquetes de prueba para verificar estado." },
+          { en: "discovery", es: "descubrimiento", alt: ["hallazgo"], pos: "noun", exEn: "Host discovery using ICMP echo requests.", exEs: "Descubrimiento de hosts usando solicitudes de eco ICMP.", hint: "Fase de identificar qué máquinas están vivas en la red." },
+          { en: "leak", es: "fuga", alt: ["filtración", "filtracion"], pos: "noun", exEn: "Memory leak exposed sensitive pointers.", exEs: "La fuga de memoria expuso punteros sensibles.", hint: "Escape no intencionado de datos o información." },
+          { en: "scope", es: "alcance", alt: ["ambito"], pos: "noun", exEn: "Verify that the target IP is in scope.", exEs: "Verifica que la IP objetivo esté dentro del alcance.", hint: "Límite autorizado de objetivos en una auditoría o CTF." }
+        ]
+      },
+      // 31-40: Web Exploitation & OWASP
+      {
+        theme: "Vulnerabilidades Web",
+        words: [
+          { en: "sanitize", es: "sanear", alt: ["sanitizar", "limpiar"], pos: "verb", exEn: "Sanitize user input before SQL execution.", exEs: "Sanea la entrada del usuario antes de la ejecución SQL.", hint: "Limpiar y validar datos para evitar inyecciones." },
+          { en: "bypass", es: "evadir", alt: ["burlar", "saltarse", "bypass"], pos: "verb", exEn: "Bypass authentication with SQL injection.", exEs: "Evade la autenticación con inyección SQL.", hint: "Sortear o saltarse un filtro o mecanismo de seguridad." },
+          { en: "tampering", es: "manipulación indebida", alt: ["manipulacion", "alteracion"], pos: "noun", exEn: "Parameter tampering allowed price change.", exEs: "La manipulación indebida de parámetros permitió cambiar el precio.", hint: "Modificar datos no autorizados en tránsito." },
+          { en: "injection", es: "inyección", alt: ["inyeccion"], pos: "noun", exEn: "Command injection leads to root shell.", exEs: "La inyección de comandos conduce a una shell de root.", hint: "Introducir código malicioso en una consulta o comando." },
+          { en: "cookie", es: "galleta", alt: ["cookie", "galleta de sesion"], pos: "noun", exEn: "Steal session cookie via stored XSS.", exEs: "Roba la galleta de sesión mediante XSS almacenado.", hint: "Pequeño dato almacenado en el navegador para sesiones." },
+          { en: "endpoint", es: "punto final", alt: ["extremo", "endpoint"], pos: "noun", exEn: "Vulnerable API endpoint allows user deletion.", exEs: "El punto final de la API vulnerable permite borrar usuarios.", hint: "URL o ruta específica de una API o servicio web." },
+          { en: "header", es: "cabecera", alt: ["encabezado", "cabeceras"], pos: "noun", exEn: "Inject custom HTTP header.", exEs: "Inyecta una cabecera HTTP personalizada.", hint: "Metadatos enviados antes del cuerpo de una petición HTTP." },
+          { en: "token", es: "ficha", alt: ["token", "clave"], pos: "noun", exEn: "JWT token signature was cracked.", exEs: "La firma del token JWT fue descifrada.", hint: "Cadena de caracteres que autentica o autoriza a un usuario." },
+          { en: "query", es: "consulta", alt: ["petición", "query"], pos: "noun", exEn: "Craft a UNION based SQL query.", exEs: "Construye una consulta SQL basada en UNION.", hint: "Instrucción de búsqueda enviada a una base de datos." },
+          { en: "traverse", es: "atravesar", alt: ["recorrer"], pos: "verb", exEn: "Traverse directory structure using dot-dot-slash.", exEs: "Atraviesa la estructura de directorios usando ../.", hint: "Subir niveles de directorios en el sistema (Path Traversal)." },
+          { en: "craft", es: "construir", alt: ["elaborar", "fabricar"], pos: "verb", exEn: "Craft a custom reverse shell payload.", exEs: "Construye una carga útil de reverse shell personalizada.", hint: "Diseñar cuidadosamente un paquete o exploit." },
+          { en: "decode", es: "decodificar", alt: ["descodificar"], pos: "verb", exEn: "Decode Base64 encoded password string.", exEs: "Decodifica la cadena de contraseña codificada en Base64.", hint: "Convertir datos codificados a su formato legible original." }
+        ]
+      },
+      // 41-50: Cryptography & Hashes
+      {
+        theme: "Criptografía y Hashes",
+        words: [
+          { en: "plaintext", es: "texto en claro", alt: ["texto plano", "texto legible"], pos: "noun", exEn: "The password was stored in plaintext.", exEs: "La contraseña estaba almacenada en texto en claro.", hint: "Texto no cifrado legible para cualquiera." },
+          { en: "ciphertext", es: "texto cifrado", alt: ["criptograma"], pos: "noun", exEn: "Decrypt the ciphertext with the private key.", exEs: "Descifra el texto cifrado con la clave privada.", hint: "Resultado ininteligible tras aplicar un algoritmo de cifrado." },
+          { en: "salt", es: "sal", alt: ["salting"], pos: "noun", exEn: "Passwords hashed with a random salt.", exEs: "Contraseñas hasheadas con una sal aleatoria.", hint: "Cadena aleatoria añadida al texto antes de hashearlo." },
+          { en: "entropy", es: "entropía", alt: ["entropia", "aleatoriedad"], pos: "noun", exEn: "Low entropy makes keys predictable.", exEs: "Baja entropía hace que las claves sean predecibles.", hint: "Medida de aleatoriedad e impredictibilidad de los datos." },
+          { en: "cipher", es: "cifrador", alt: ["cifrado", "algoritmo de cifrado"], pos: "noun", exEn: "AES is a modern symmetric block cipher.", exEs: "AES es un cifrador de bloque simétrico moderno.", hint: "Algoritmo matemático utilizado para cifrar o descifrar." },
+          { en: "collision", es: "colisión", alt: ["colision"], pos: "noun", exEn: "MD5 is vulnerable to hash collision attacks.", exEs: "MD5 es vulnerable a ataques de colisión de hash.", hint: "Cuando dos entradas diferentes generan el mismo valor hash." },
+          { en: "signature", es: "firma", alt: ["firma digital"], pos: "noun", exEn: "Verify RSA digital signature.", exEs: "Verifica la firma digital RSA.", hint: "Mecanismo criptográfico para autenticar origen e integridad." },
+          { en: "nonce", es: "número de un solo uso", alt: ["nonce", "numero de un solo uso"], pos: "noun", exEn: "Cryptographic nonce prevents replay attacks.", exEs: "El número de un solo uso criptográfico previene ataques de repetición.", hint: "Número arbitrario usado una sola vez en un protocolo." },
+          { en: "decrypt", es: "descifrar", alt: ["desencriptar"], pos: "verb", exEn: "Decrypt the encrypted RSA message.", exEs: "Descifra el mensaje cifrado RSA.", hint: "Recuperar el texto original a partir del texto cifrado." },
+          { en: "encrypt", es: "cifrar", alt: ["encriptar"], pos: "verb", exEn: "Encrypt traffic using TLS certificates.", exEs: "Cifra el tráfico usando certificados TLS.", hint: "Transformar información legible en ilegible." },
+          { en: "crack", es: "reventar", alt: ["romper", "crackear"], pos: "verb", exEn: "Crack the password hash with hashcat.", exEs: "Revienta el hash de la contraseña con hashcat.", hint: "Romper una protección o deducir una contraseña de un hash." },
+          { en: "brute-force", es: "fuerza bruta", alt: ["fuerza-bruta"], pos: "noun", exEn: "Launch brute-force attack against SSH login.", exEs: "Lanza un ataque de fuerza bruta contra el login SSH.", hint: "Probar exhaustivamente todas las combinaciones posibles." }
+        ]
+      },
+      // 51-60: Exploitation & Shells
+      {
+        theme: "Explotación y Shells",
+        words: [
+          { en: "spawn", es: "generar", alt: ["engendrar", "crear", "spawn"], pos: "verb", exEn: "Spawn a TTY shell using python pty.", exEs: "Genera una shell TTY usando python pty.", hint: "Iniciar o crear un nuevo proceso o terminal interactiva." },
+          { en: "trigger", es: "desencadenar", alt: ["activar", "disparar"], pos: "verb", exEn: "Trigger the vulnerability via buffer overflow.", exEs: "Desencadena la vulnerabilidad mediante desbordamiento de búfer.", hint: "Provocar la ejecución de una acción o fallo." },
+          { en: "listener", es: "oyente", alt: ["escuchador", "receptor", "listener"], pos: "noun", exEn: "Set up netcat listener on port 9001.", exEs: "Configura un oyente de netcat en el puerto 9001.", hint: "Proceso que espera conexiones entrantes (ej: nc -lvnp)." },
+          { en: "reverse shell", es: "shell inversa", alt: ["shell reversa"], pos: "noun", exEn: "Catch the incoming reverse shell connection.", exEs: "Captura la conexión entrante de la shell inversa.", hint: "La máquina víctima se conecta de vuelta al atacante." },
+          { en: "bind shell", es: "shell vinculada", alt: ["bind shell", "shell enlazada"], pos: "noun", exEn: "Connect to target bind shell on port 4444.", exEs: "Conéctate a la shell vinculada del objetivo en el puerto 4444.", hint: "La máquina víctima abre un puerto y espera al atacante." },
+          { en: "overflow", es: "desbordamiento", alt: ["rebosamiento"], pos: "noun", exEn: "Stack buffer overflow overwrites EIP register.", exEs: "El desbordamiento de búfer de pila sobrescribe el registro EIP.", hint: "Escribir más datos de los que caben en un espacio de memoria." },
+          { en: "stack", es: "pila", alt: ["pila de memoria"], pos: "noun", exEn: "Local variables are placed on the stack.", exEs: "Las variables locales se colocan en la pila.", hint: "Estructura de memoria LIFO para funciones y retornos." },
+          { en: "heap", es: "montículo", alt: ["monticulo", "heap"], pos: "noun", exEn: "Dynamically allocated memory resides on the heap.", exEs: "La memoria asignada dinámicamente reside en el montículo.", hint: "Zona de memoria para variables dinámicas (malloc)." },
+          { en: "pointer", es: "puntero", alt: ["punteros"], pos: "noun", exEn: "Instruction pointer points to shellcode.", exEs: "El puntero de instrucción apunta a la shellcode.", hint: "Variable que contiene una dirección de memoria." },
+          { en: "exploit", es: "explotar", alt: ["aprovechar", "exploit"], pos: "verb", exEn: "Exploit unpatched service vulnerability.", exEs: "Explota la vulnerabilidad del servicio sin parches.", hint: "Aprovechar una debilidad para obtener acceso no autorizado." },
+          { en: "disassemble", es: "desensamblar", alt: ["desarmar"], pos: "verb", exEn: "Disassemble binary with Ghidra or radare2.", exEs: "Desensambla el binario con Ghidra o radare2.", hint: "Convertir código máquina a código ensamblador." },
+          { en: "patch", es: "parchear", alt: ["parche"], pos: "verb", exEn: "Patch binary instructions to bypass license check.", exEs: "Parchea las instrucciones binarias para evadir el chequeo de licencia.", hint: "Modificar código para arreglar o alterar su comportamiento." }
+        ]
+      },
+      // 61-70: Privilege Escalation
+      {
+        theme: "Escalada de Privilegios",
+        words: [
+          { en: "privilege", es: "privilegio", alt: ["privilegios"], pos: "noun", exEn: "Escalate privilege from www-data to root.", exEs: "Escala privilegio de www-data a root.", hint: "Nivel de acceso y permisos dentro de un sistema." },
+          { en: "escalate", es: "escalar", alt: ["elevar"], pos: "verb", exEn: "Escalate local privileges via sudo rights.", exEs: "Escala privilegios locales mediante permisos de sudo.", hint: "Aumentar tu nivel de autorización a administrador/root." },
+          { en: "sudoers", es: "archivo de sudoers", alt: ["sudoers", "lista de sudoers"], pos: "noun", exEn: "Misconfigured sudoers file allows NOPASSWD execution.", exEs: "El archivo de sudoers mal configurado permite ejecución sin contraseña.", hint: "Archivo en Linux (/etc/sudoers) que otorga permisos de superusuario." },
+          { en: "writable", es: "escribible", alt: ["con permiso de escritura"], pos: "adj", exEn: "Find world-writable scripts in /opt directory.", exEs: "Encuentra scripts con permisos de escritura para todos en /opt.", hint: "Archivo o carpeta en la que cualquier usuario puede escribir." },
+          { en: "misconfiguration", es: "mala configuración", alt: ["mala configuracion", "desconfiguracion"], pos: "noun", exEn: "Exploit service misconfiguration for local root.", exEs: "Explota la mala configuración del servicio para obtener root local.", hint: "Error o descuido en los ajustes de seguridad del sistema." },
+          { en: "capabilities", es: "capacidades", alt: ["capacidades de linux", "permisos especiales"], pos: "noun", exEn: "Inspect Linux capabilities using getcap.", exEs: "Inspecciona capacidades de Linux usando getcap.", hint: "Permisos granulares que dividen los privilegios de root." },
+          { en: "suid", es: "bit suid", alt: ["suid", "setuid"], pos: "noun", exEn: "Search for binary files with SUID bit set.", exEs: "Busca archivos binarios con el bit SUID activo.", hint: "Permiso especial que ejecuta un programa con privilegios del dueño." },
+          { en: "unquoted", es: "sin entrecomillar", alt: ["sin comillas"], pos: "adj", exEn: "Unquoted service path vulnerability on Windows.", exEs: "Vulnerabilidad de ruta de servicio sin entrecomillar en Windows.", hint: "Ruta con espacios que no está encerrada entre comillas." },
+          { en: "scheduled task", es: "tarea programada", alt: ["tarea agendada"], pos: "noun", exEn: "Abuse Windows scheduled task for persistence.", exEs: "Abusa de la tarea programada de Windows para persistencia.", hint: "Acción automática que Windows ejecuta periódicamente." },
+          { en: "impersonate", es: "suplantar", alt: ["imitar", "hacerse pasar por"], pos: "verb", exEn: "Impersonate token using Juicy Potato exploit.", exEs: "Suplanta el token usando el exploit Juicy Potato.", hint: "Hacerse pasar por otro usuario o proceso con más privilegios." },
+          { en: "elevate", es: "elevar", alt: ["ascender"], pos: "verb", exEn: "Elevate command prompt to NT AUTHORITY\\SYSTEM.", exEs: "Eleva la consola de comandos a NT AUTHORITY\\SYSTEM.", hint: "Subir a un rango de mayor poder en el sistema." },
+          { en: "vulnerable", es: "vulnerable", alt: ["inseguro", "debil"], pos: "adj", exEn: "The installed sudo version is vulnerable to heap overflow.", exEs: "La versión de sudo instalada es vulnerable a desbordamiento de montículo.", hint: "Susceptible de ser atacado o comprometido." }
+        ]
+      },
+      // 71-80: Post-Exploitation & Lateral Movement
+      {
+        theme: "Post-Explotación y Pivoting",
+        words: [
+          { en: "pivot", es: "pivotar", alt: ["hacer pivote"], pos: "verb", exEn: "Pivot through compromised dual-homed machine.", exEs: "Pivota a través de la máquina comprometida con doble tarjeta de red.", hint: "Usar un equipo comprometido para atacar otra red oculta." },
+          { en: "persistence", es: "persistencia", alt: ["mantenimiento"], pos: "noun", exEn: "Establish persistence via SSH authorized_keys.", exEs: "Establece persistencia mediante authorized_keys de SSH.", hint: "Garantizar que el acceso se mantenga tras reiniciar la máquina." },
+          { en: "exfiltrate", es: "exfiltrar", alt: ["extraer", "filtrar"], pos: "verb", exEn: "Exfiltrate confidential database dumps via DNS.", exEs: "Exfiltra volcados de base de datos confidenciales por DNS.", hint: "Robar y sacar datos de la red de la víctima hacia el exterior." },
+          { en: "dump", es: "volcar", alt: ["vaciar", "extraer"], pos: "verb", exEn: "Dump SAM database hashes using secretsdump.", exEs: "Vuelca los hashes de la base de datos SAM usando secretsdump.", hint: "Extraer en masa datos o contraseñas de la memoria o disco." },
+          { en: "credentials", es: "credenciales", alt: ["claves", "accesos"], pos: "noun", exEn: "Harvest plaintext credentials from memory.", exEs: "Cosecha credenciales en texto claro de la memoria.", hint: "Nombres de usuario y contraseñas de acceso." },
+          { en: "backdoor", es: "puerta trasera", alt: ["backdoor"], pos: "noun", exEn: "Leave a hidden PHP backdoor in upload folder.", exEs: "Deja una puerta trasera PHP oculta en la carpeta de subidas.", hint: "Acceso secreto dejado por el atacante para volver a entrar." },
+          { en: "artifact", es: "artefacto", alt: ["rastro", "evidencia"], pos: "noun", exEn: "Clean forensic artifacts after operation.", exEs: "Limpia artefactos forenses tras la operación.", hint: "Rastros, logs o archivos dejados por el atacante." },
+          { en: "stealth", es: "sigilo", alt: ["discreción", "discrecion"], pos: "noun", exEn: "Execute stealth scan to avoid detection by SOC.", exEs: "Ejecuta un escaneo con sigilo para evitar detección por el SOC.", hint: "Habilidad para actuar sin ser detectado ni alertar alarmas." },
+          { en: "loot", es: "botín", alt: ["botin", "recompensa"], pos: "noun", exEn: "Store loot in local working directory.", exEs: "Guarda el botín en el directorio de trabajo local.", hint: "Información valiosa conseguida de la máquina víctima." },
+          { en: "forwarding", es: "reenvío", alt: ["reenvio", "redireccionamiento"], pos: "noun", exEn: "Local port forwarding binds remote 3306 to localhost.", exEs: "El reenvío de puertos local enlaza el 3306 remoto a localhost.", hint: "Hacer accesible un puerto remoto en tu propia máquina." },
+          { en: "harvest", es: "cosechar", alt: ["recolectar"], pos: "verb", exEn: "Harvest email addresses and passwords from web pages.", exEs: "Cosecha direcciones de correo y contraseñas de páginas web.", hint: "Recolectar información valiosa de manera sistemática." },
+          { en: "eavesdrop", es: "espiar", alt: ["escuchar a escondidas", "interceptar"], pos: "verb", exEn: "Eavesdrop on unencrypted FTP credentials.", exEs: "Espía credenciales de FTP no cifradas.", hint: "Escuchar o interceptar comunicaciones sin autorización." }
+        ]
+      },
+      // 81-90: Active Directory & Windows Pentesting
+      {
+        theme: "Active Directory y Windows",
+        words: [
+          { en: "domain controller", es: "controlador de dominio", alt: ["controlador de dominios", "dc"], pos: "noun", exEn: "Compromise Domain Controller to own the entire forest.", exEs: "Compromete el controlador de dominio para dominar todo el bosque.", hint: "El servidor principal que gestiona la seguridad de Active Directory." },
+          { en: "ticket", es: "boleto", alt: ["ticket", "billete"], pos: "noun", exEn: "Request a Kerberos ticket for service authentication.", exEs: "Solicita un boleto de Kerberos para autenticación de servicio.", hint: "Elemento de autenticación en Kerberos (TGT o TGS)." },
+          { en: "kerberoasting", es: "kerberoasting", alt: ["ataque kerberoasting"], pos: "noun", exEn: "Extract service tickets offline with kerberoasting.", exEs: "Extrae boletos de servicio sin conexión con kerberoasting.", hint: "Técnica para pedir tickets SPN y crackear contraseñas offline." },
+          { en: "pass the hash", es: "pasar el hash", alt: ["pass-the-hash", "pasar hash"], pos: "noun", exEn: "Authenticate using pass the hash without plaintext password.", exEs: "Autentícate usando pasar el hash sin la contraseña en texto plano.", hint: "Usar directamente el hash NTLM para autenticarse sin descifrarlo." },
+          { en: "realm", es: "reino", alt: ["reino kerberos", "dominio"], pos: "noun", exEn: "Kerberos realm name corresponds to domain name.", exEs: "El nombre del reino de Kerberos corresponde al nombre del dominio.", hint: "Ámbito administrativo de Kerberos (suele ser el nombre del dominio en mayúsculas)." },
+          { en: "trust", es: "confianza", alt: ["relación de confianza", "relacion de confianza"], pos: "noun", exEn: "Enumerate domain trust relationships in the forest.", exEs: "Enumera las relaciones de confianza de dominio en el bosque.", hint: "Enlace entre dos dominios que permite autenticación compartida." },
+          { en: "bloodhound", es: "bloodhound", alt: ["sabueso"], pos: "noun", exEn: "Analyze shortest path to Domain Admin using BloodHound.", exEs: "Analiza el camino más corto hacia Administrador de Dominio usando BloodHound.", hint: "Herramienta que mapea relaciones de Active Directory con grafos." },
+          { en: "delegation", es: "delegación", alt: ["delegacion"], pos: "noun", exEn: "Unconstrained delegation allows ticket extraction.", exEs: "La delegación sin restricciones permite la extracción de boletos.", hint: "Capacidad de un servicio de hacerse pasar por un usuario ante otro." },
+          { en: "roast", es: "asar", alt: ["tostar", "extraer hashes"], pos: "verb", exEn: "Roast AS-REP accounts that do not require pre-authentication.", exEs: "Asa cuentas AS-REP que no requieren pre-autenticación.", hint: "Término en AD para solicitar hashes y crackearlos (AS-REP roasting)." },
+          { en: "forest", es: "bosque", alt: ["bosque de dominios"], pos: "noun", exEn: "The forest root domain holds the Schema Master role.", es: "El dominio raíz del bosque posee el rol de Schema Master.", hint: "Conjunto de uno o más árboles de dominios en Active Directory." },
+          { en: "share", es: "recurso compartido", alt: ["carpeta compartida", "share"], pos: "noun", exEn: "Enumerate anonymous SMB share access.", exEs: "Enumera acceso anónimo a recursos compartidos SMB.", hint: "Carpeta de red compartida mediante SMB o NFS." },
+          { en: "poison", es: "envenenar", alt: ["intoxicar"], pos: "verb", exEn: "Poison LLMNR and NBT-NS queries using Responder.", exEs: "Envenena consultas LLMNR y NBT-NS usando Responder.", hint: "Enviar respuestas falsas para capturar hashes de red." }
+        ]
+      },
+      // 91-100: HTB CTF Culture & Advanced Terms
+      {
+        theme: "Hack The Box CTF y Jerga",
+        words: [
+          { en: "flag", es: "bandera", alt: ["flag"], pos: "noun", exEn: "Submit user.txt flag to Hack The Box platform.", exEs: "Envía la bandera user.txt a la plataforma Hack The Box.", hint: "Cadena secreta (hash) que demuestra que resolviste la máquina." },
+          { en: "writeup", es: "guía de resolución", alt: ["guia de resolucion", "writeup", "informe"], pos: "noun", exEn: "Read retired machine writeup to learn new techniques.", exEs: "Lee la guía de resolución de máquinas retiradas para aprender nuevas técnicas.", hint: "Documento o tutorial paso a paso explicando cómo se pwnéa una máquina." },
+          { en: "pwn", es: "comprometer por completo", alt: ["hackear", "dominar", "pwn", "pwnear"], pos: "verb", exEn: "Pwn the root account on the Insane rated box.", exEs: "Compromete por completo la cuenta root en la máquina de dificultad Insane.", hint: "Término gamer/hacker para dominar por completo un objetivo." },
+          { en: "box", es: "máquina", alt: ["maquina", "servidor"], pos: "noun", exEn: "Spawn the target box on HTB VIP network.", exEs: "Genera la máquina objetivo en la red HTB VIP.", hint: "Nombre coloquial en Hack The Box para referirse a un servidor objetivo." },
+          { en: "obfuscation", es: "ofuscación", alt: ["ofuscacion"], pos: "noun", exEn: "PowerShell script uses heavy base64 obfuscation.", exEs: "El script de PowerShell utiliza una fuerte ofuscación en base64.", hint: "Ocultar el significado de un código para que no sea legible." },
+          { en: "sandbox", es: "entorno aislado", alt: ["arenero", "sandbox", "caja de arena"], pos: "noun", exEn: "Escape Docker container sandbox.", exEs: "Escapa del entorno aislado del contenedor Docker.", hint: "Espacio restringido que aísla la ejecución de código sospechoso." },
+          { en: "weaponize", es: "militarizar", alt: ["armar", "armar exploit"], pos: "verb", exEn: "Weaponize proof of concept into reliable exploit.", exEs: "Militariza la prueba de concepto en un exploit confiable.", hint: "Convertir una vulnerabilidad teórica en un arma lista para usarse." },
+          { en: "triage", es: "triaje", alt: ["clasificacion", "clasificación"], pos: "noun", exEn: "Perform incident triage to identify entry vector.", exEs: "Realiza el triaje del incidente para identificar el vector de entrada.", hint: "Evaluación rápida de gravedad para priorizar acciones." },
+          { en: "retired", es: "retirada", alt: ["jubilada"], pos: "adj", exEn: "Retired machines have official walkthroughs available.", exEs: "Las máquinas retiradas tienen guías de resolución oficiales disponibles.", hint: "Máquinas de HTB que ya no dan puntos pero tienen writeups libres." },
+          { en: "blood", es: "primera sangre", alt: ["sangre", "first blood"], pos: "noun", exEn: "Claim first blood on user flag within 10 minutes.", exEs: "Reclama la primera sangre en la bandera de usuario en 10 minutos.", hint: "Logro otorgado al primer jugador del mundo en resolver una máquina." },
+          { en: "sanity check", es: "comprobación de cordura", alt: ["verificacion rapida", "chequeo"], pos: "noun", exEn: "Do a sanity check on IP connectivity before scanning.", exEs: "Haz una comprobación de cordura sobre la conectividad IP antes de escanear.", hint: "Prueba básica y rápida para asegurarse de que todo funciona." },
+          { en: "threat", es: "amenaza", alt: ["peligro"], pos: "noun", exEn: "Threat hunting involves searching for stealthy adversaries.", exEs: "La caza de amenazas implica buscar adversarios sigilosos.", hint: "Cualquier circunstancia o evento con potencial de causar daño." }
+        ]
+      }
+    ];
+
+    // Build the full 100 levels dataset deterministically
+    // Each of the 100 levels has exactly 12 rich cybersecurity words!
+    const LEVELS_DATABASE = [];
+
+    for (let lvl = 1; lvl <= 100; lvl++) {
+      const moduleIdx = Math.floor((lvl - 1) / 10); // 0 to 9
+      const baseModule = baseCurriculum[moduleIdx];
+      const screenInModule = ((lvl - 1) % 10) + 1; // 1 to 10
+
+      // Rotate and generate 12 words with screen-specific twists
+      const levelWords = baseModule.words.map((w, idx) => {
+        return {
+          id: `lvl${lvl}_w${idx+1}`,
+          en: w.en,
+          es: w.es,
+          alt: w.alt || [],
+          pos: w.pos,
+          exEn: w.exEn,
+          exEs: w.exEs,
+          hint: w.hint
+        };
+      });
+
+      // Shift slightly per sub-level to provide dynamic order & challenge
+      const shift = (screenInModule * 3) % 12;
+      const rotatedWords = [...levelWords.slice(shift), ...levelWords.slice(0, shift)];
+
+      LEVELS_DATABASE.push({
+        levelNumber: lvl,
+        moduleName: baseModule.theme,
+        screenTitle: `Pantalla ${lvl}: ${baseModule.theme} (Etapa ${screenInModule})`,
+        words: rotatedWords
+      });
+    }
+
+    /* ============================================================
+       4. GAME STATE & LOCALSTORAGE
+       ============================================================ */
+    const STORAGE_KEY = 'htb_english_trainer_save_v1';
+    let gameState = {
+      currentLevel: 1,
+      unlockedLevel: 1,
+      totalScore: 0,
+      completedLevels: {},
+    };
+
+    function loadSavedState() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          gameState = { ...gameState, ...parsed };
+        } catch (e) {}
+      }
+    }
+
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(gameState));
+    }
+
+    loadSavedState();
+
+    // Round specific variables
+    let currentScreenIndex = 0; // 0 to 11
+    let lives = 3;
+    let attempts = 3;
+    let currentQuestion = null;
+    let isQuestionResolved = false;
+
+    // DOM Elements
+    const headerLevel = document.getElementById('header-level');
+    const headerLives = document.getElementById('header-lives');
+    const headerScore = document.getElementById('header-score');
+    const currentScreenName = document.getElementById('current-screen-name');
+    const wordIndexDisplay = document.getElementById('word-index');
+    const modeBadge = document.getElementById('mode-badge');
+    const targetClue = document.getElementById('target-clue');
+    const posInfo = document.getElementById('pos-info');
+    const contextSentence = document.getElementById('context-sentence');
+    const contextTrans = document.getElementById('context-trans');
+    const hintText = document.getElementById('hint-text');
+    const userInput = document.getElementById('user-input');
+    const submitBtn = document.getElementById('submit-btn');
+    const feedbackText = document.getElementById('feedback-text');
+
+    /* ============================================================
+       5. GAMEPLAY LOGIC
+       ============================================================ */
+    function startLevel(lvlNum) {
+      if (lvlNum > gameState.unlockedLevel) return;
+      gameState.currentLevel = lvlNum;
+      currentScreenIndex = 0;
+      lives = 3;
+      updateHeader();
+      loadWord();
+      switchTab('game');
+    }
+
+    function updateHeader() {
+      headerLevel.textContent = `${String(gameState.currentLevel).padStart(2, '0')}/100`;
+      headerLives.textContent = lives;
+      headerScore.textContent = gameState.totalScore;
+    }
+
+    function loadWord() {
+      const levelData = LEVELS_DATABASE[gameState.currentLevel - 1];
+      currentScreenName.textContent = levelData.screenTitle;
+      wordIndexDisplay.textContent = currentScreenIndex + 1;
+
+      const word = levelData.words[currentScreenIndex];
+      // Randomize direction or balance: 50% EN->ES, 50% ES->EN
+      const askEnglish = (currentScreenIndex % 2 === 1); 
+
+      currentQuestion = {
+        word: word,
+        askEnglish: askEnglish,
+        expectedAnswer: askEnglish ? word.en : word.es,
+        acceptedAnswers: askEnglish 
+          ? [word.en.toLowerCase().trim()]
+          : [word.es.toLowerCase().trim(), ...(word.alt || []).map(a => a.toLowerCase().trim())]
+      };
+
+      attempts = 3;
+      isQuestionResolved = false;
+      updateAttemptDots();
+
+      // UI setup
+      if (askEnglish) {
+        modeBadge.textContent = "TRADUCE AL INGLÉS (Término Técnico)";
+        modeBadge.style.color = "var(--htb-green)";
+        modeBadge.style.borderColor = "var(--htb-green)";
+        targetClue.textContent = word.es;
+        document.getElementById('audio-clue-btn').style.display = 'none';
+      } else {
+        modeBadge.textContent = "TRADUCE AL ESPAÑOL (Significado)";
+        modeBadge.style.color = "var(--htb-cyan)";
+        modeBadge.style.borderColor = "var(--htb-cyan)";
+        targetClue.textContent = word.en;
+        document.getElementById('audio-clue-btn').style.display = 'inline-block';
+        // Auto pronounce in English when prompt is in English!
+        speakEnglish(word.en);
+      }
+
+      posInfo.textContent = `[${word.pos}]`;
+      contextSentence.textContent = `"${word.exEn}"`;
+      contextTrans.textContent = `"${word.exEs}"`;
+
+      hintText.textContent = "";
+      feedbackText.textContent = "";
+      feedbackText.style.color = "var(--text-main)";
+      userInput.value = "";
+      userInput.className = "answer-input font-mono";
+      userInput.disabled = false;
+      submitBtn.textContent = "VERIFICAR [ENTER]";
+      userInput.focus();
+    }
+
+    function updateAttemptDots() {
+      const dot1 = document.getElementById('dot-1');
+      const dot2 = document.getElementById('dot-2');
+      const dot3 = document.getElementById('dot-3');
+
+      [dot1, dot2, dot3].forEach(d => d.className = 'attempt-dot');
+
+      if (attempts === 3) {
+        dot1.classList.add('active');
+      } else if (attempts === 2) {
+        dot1.classList.add('failed');
+        dot2.classList.add('active');
+      } else if (attempts === 1) {
+        dot1.classList.add('failed');
+        dot2.classList.add('failed');
+        dot3.classList.add('active');
+      } else {
+        dot1.classList.add('failed');
+        dot2.classList.add('failed');
+        dot3.classList.add('failed');
+      }
+    }
+
+    // Normalized comparison: remove accents, trim, lowercase
+    function normalizeStr(str) {
+      return str
+        .toLowerCase()
+        .trim()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "") // removes accents for friendly Spanish typing
+        .replace(/[-_]/g, " ");
+    }
+
+    function checkAnswer() {
+      if (isQuestionResolved) {
+        // Advance to next word
+        nextWord();
+        return;
+      }
+
+      const inputVal = userInput.value;
+      if (!inputVal.trim()) {
+        userInput.focus();
+        return;
+      }
+
+      const normalizedInput = normalizeStr(inputVal);
+      const isCorrect = currentQuestion.acceptedAnswers.some(ans => normalizeStr(ans) === normalizedInput);
+
+      if (isCorrect) {
+        // SUCCESS!
+        soundSuccess();
+        isQuestionResolved = true;
+        const pts = attempts === 3 ? 100 : (attempts === 2 ? 50 : 25);
+        gameState.totalScore += pts;
+        updateHeader();
+        saveState();
+
+        feedbackText.style.color = "var(--htb-green)";
+        feedbackText.textContent = `✓ ¡EXCELENTE! +${pts} pts. Respuesta correcta.`;
+        userInput.classList.add('correct');
+        userInput.disabled = true;
+        submitBtn.textContent = "CONTINUAR [ENTER]";
+        speakEnglish(currentQuestion.word.en);
+      } else {
+        // WRONG
+        soundError();
+        attempts--;
+        updateAttemptDots();
+        userInput.classList.add('shake');
+        setTimeout(() => userInput.classList.remove('shake'), 400);
+
+        if (attempts > 0) {
+          feedbackText.style.color = "var(--danger)";
+          feedbackText.textContent = `✗ Incorrecto. Te quedan ${attempts} intento(s).`;
+
+          if (attempts === 2) {
+            hintText.textContent = `💡 PISTA: ${currentQuestion.word.hint}`;
+          } else if (attempts === 1) {
+            const ans = currentQuestion.expectedAnswer;
+            hintText.textContent = `💡 PISTA FINAL: Empieza con "${ans.charAt(0).toUpperCase()}" y tiene ${ans.length} letras.`;
+          }
+          userInput.select();
+        } else {
+          // 0 ATTEMPTS LEFT -> LOSE LIFE
+          lives--;
+          updateHeader();
+          isQuestionResolved = true;
+
+          feedbackText.style.color = "var(--danger)";
+          feedbackText.textContent = `✗ Agotaste tus intentos. La respuesta correcta era: "${currentQuestion.expectedAnswer.toUpperCase()}".`;
+          userInput.disabled = true;
+          submitBtn.textContent = "CONTINUAR [ENTER]";
+          speakEnglish(currentQuestion.word.en);
+
+          if (lives <= 0) {
+            soundGameOver();
+            setTimeout(showGameOverModal, 600);
+            return;
+          }
+        }
+      }
+    }
+
+    function nextWord() {
+      currentScreenIndex++;
+      if (currentScreenIndex >= 12) {
+        // SCREEN / LEVEL COMPLETED!
+        completeLevel();
+      } else {
+        loadWord();
+      }
+    }
+
+    function completeLevel() {
+      soundLevelUp();
+      gameState.completedLevels[gameState.currentLevel] = true;
+      if (gameState.currentLevel === gameState.unlockedLevel && gameState.unlockedLevel < 100) {
+        gameState.unlockedLevel++;
+      }
+      saveState();
+
+      const modal = document.getElementById('modal-screen');
+      const title = document.getElementById('modal-title');
+      const stats = document.getElementById('modal-stats');
+      const btn = document.getElementById('modal-btn');
+
+      title.className = "modal-title win font-mono";
+      title.textContent = "¡PANTALLA COMPLETADA!";
+      stats.innerHTML = `
+        ¡Excelente trabajo, hacker!<br>
+        Has dominado las 12 palabras de la <strong>Pantalla ${gameState.currentLevel}</strong>.<br>
+        Puntuación Acumulada: <strong>${gameState.totalScore} pts</strong>.<br>
+        Vidas restantes: <strong>${lives}/3</strong>
+      `;
+      btn.textContent = gameState.currentLevel < 100 ? "SIGUIENTE PANTALLA" : "¡HAS COMPLETADO LOS 100 NIVELES!";
+      btn.onclick = () => {
+        closeModal();
+        if (gameState.currentLevel < 100) {
+          startLevel(gameState.currentLevel + 1);
+        } else {
+          switchTab('levels');
+        }
+      };
+      modal.classList.add('show');
+    }
+
+    function showGameOverModal() {
+      const modal = document.getElementById('modal-screen');
+      const title = document.getElementById('modal-title');
+      const stats = document.getElementById('modal-stats');
+      const btn = document.getElementById('modal-btn');
+
+      title.className = "modal-title lose font-mono";
+      title.textContent = "¡MISIÓN FALLIDA!";
+      stats.innerHTML = `
+        Te has quedado sin vidas en la <strong>Pantalla ${gameState.currentLevel}</strong>.<br>
+        ¡No te rindas! El aprendizaje de inglés técnico para HTB requiere práctica constante.
+      `;
+      btn.textContent = "REINTENTAR PANTALLA";
+      btn.onclick = () => {
+        closeModal();
+        startLevel(gameState.currentLevel);
+      };
+      modal.classList.add('show');
+    }
+
+    function closeModal() {
+      document.getElementById('modal-screen').classList.remove('show');
+    }
+
+    // Keyboard listener: ENTER to submit or continue
+    userInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        checkAnswer();
+      }
+    });
+
+    /* ============================================================
+       6. TABS & VIEWS (100 Levels Grid & Glossary)
+       ============================================================ */
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.view-panel').forEach(panel => panel.classList.remove('active'));
+
+      if (tabName === 'game') {
+        document.querySelector('.tab-btn:nth-child(1)').classList.add('active');
+        document.getElementById('game-view').classList.add('active');
+        userInput.focus();
+      } else if (tabName === 'levels') {
+        document.querySelector('.tab-btn:nth-child(2)').classList.add('active');
+        document.getElementById('levels-view').classList.add('active');
+        renderLevelsGrid();
+      } else if (tabName === 'dictionary') {
+        document.querySelector('.tab-btn:nth-child(3)').classList.add('active');
+        document.getElementById('dictionary-view').classList.add('active');
+        renderDictionary();
+      }
+    }
+
+    function renderLevelsGrid() {
+      const grid = document.getElementById('levels-grid');
+      grid.innerHTML = '';
+
+      LEVELS_DATABASE.forEach(lvl => {
+        const box = document.createElement('div');
+        box.className = 'level-box';
+
+        if (lvl.levelNumber === gameState.currentLevel) {
+          box.classList.add('current');
+        }
+        if (gameState.completedLevels[lvl.levelNumber]) {
+          box.classList.add('completed');
+        }
+        if (lvl.levelNumber > gameState.unlockedLevel) {
+          box.classList.add('locked');
+        } else {
+          box.onclick = () => startLevel(lvl.levelNumber);
+        }
+
+        box.innerHTML = `
+          <div class="level-num">${lvl.levelNumber}</div>
+          <div class="level-theme">P${lvl.levelNumber}</div>
+        `;
+        grid.appendChild(box);
+      });
+    }
+
+    function renderDictionary(filter = '') {
+      const tbody = document.getElementById('dict-tbody');
+      tbody.innerHTML = '';
+      const query = filter.toLowerCase().trim();
+
+      // Collect all words across all levels
+      let allWords = [];
+      LEVELS_DATABASE.forEach(l => {
+        l.words.forEach(w => {
+          allWords.push({ level: l.levelNumber, ...w });
+        });
+      });
+
+      // Filter
+      const matched = allWords.filter(item => {
+        if (!query) return true;
+        return item.en.toLowerCase().includes(query) || 
+               item.es.toLowerCase().includes(query) ||
+               (item.hint && item.hint.toLowerCase().includes(query));
+      });
+
+      // Render top 150 matching to maintain ultra-fast scrolling
+      matched.slice(0, 150).forEach(item => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td style="color: var(--htb-cyan)">#${item.level}</td>
+          <td style="color: #fff; font-weight: bold;">${item.en}</td>
+          <td style="color: var(--htb-green);">${item.es}</td>
+          <td style="color: var(--text-muted); font-size: 0.8rem;">[${item.pos}]</td>
+          <td><button class="voice-btn" style="padding: 2px 8px; font-size: 0.85rem;" onclick="speakEnglish('${item.en.replace(/'/g, "\\'")}')">🔊</button></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function filterDictionary() {
+      const text = document.getElementById('dict-search').value;
+      renderDictionary(text);
+    }
+
+    // Initial Start
+    startLevel(gameState.currentLevel);
+  </script>
+</body>
+</html>
