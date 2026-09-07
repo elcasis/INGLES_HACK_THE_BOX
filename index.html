@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🇬🇧</title>
+  <title>🇬🇧</title
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
@@ -20,6 +20,7 @@
       --text-muted: #94a3b8;
       --danger: #ff3366;
       --warning: #ffb703;
+      --study-bg: #151d30;
     }
 
     * {
@@ -211,7 +212,7 @@
 
     .prompt-box {
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 25px;
     }
 
     .mode-indicator {
@@ -242,7 +243,7 @@
       background: #1e293b;
       border: none;
       color: var(--htb-cyan);
-      padding: 6px 10px;
+      padding: 6px 12px;
       border-radius: 6px;
       cursor: pointer;
       font-size: 1.1rem;
@@ -264,7 +265,7 @@
       border-left: 3px solid var(--htb-green);
       padding: 12px 16px;
       border-radius: 0 8px 8px 0;
-      margin: 20px auto;
+      margin: 18px auto;
       max-width: 650px;
       font-size: 0.9rem;
       color: #cbd5e1;
@@ -283,8 +284,8 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 15px;
-      margin-top: 20px;
+      gap: 14px;
+      margin-top: 15px;
     }
 
     .input-wrapper {
@@ -311,6 +312,13 @@
       box-shadow: 0 0 15px var(--htb-green-glow);
     }
 
+    .answer-input:disabled {
+      background: #151b27;
+      border-color: #242e42;
+      color: #94a3b8;
+      cursor: not-allowed;
+    }
+
     .answer-input.shake {
       animation: shake 0.4s ease-in-out;
       border-color: var(--danger);
@@ -322,13 +330,23 @@
       40%, 80% { transform: translateX(8px); }
     }
 
+    .actions-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 500px;
+    }
+
     .submit-btn {
+      flex: 2;
       background: var(--htb-green);
       color: #0b0f19;
       border: none;
       font-weight: 700;
       font-size: 1rem;
-      padding: 12px 36px;
+      padding: 14px 24px;
       border-radius: 8px;
       cursor: pointer;
       transition: transform 0.1s, box-shadow 0.2s, background 0.2s;
@@ -339,18 +357,130 @@
       transform: translateY(-2px);
     }
 
+    .reveal-btn {
+      flex: 1;
+      background: #1e293b;
+      color: #f1f5f9;
+      border: 1px solid #334155;
+      font-weight: 600;
+      font-size: 0.88rem;
+      padding: 14px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .reveal-btn:hover {
+      background: #334155;
+      border-color: var(--warning);
+      color: var(--warning);
+    }
+
     .hint-alert {
       font-size: 0.9rem;
       color: var(--warning);
-      margin-top: 10px;
+      margin-top: 6px;
       min-height: 24px;
     }
 
     .feedback-msg {
-      font-size: 1rem;
+      font-size: 1.05rem;
       font-weight: 600;
-      margin-top: 12px;
+      margin-top: 10px;
       min-height: 28px;
+    }
+
+    /* STUDY CARD (TARJETA DE APRENDIZAJE) */
+    .study-card {
+      display: none;
+      width: 100%;
+      max-width: 650px;
+      background: var(--study-bg);
+      border: 2px solid var(--htb-cyan);
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 20px;
+      text-align: left;
+      box-shadow: 0 0 25px rgba(0, 229, 255, 0.15);
+      animation: fadeIn 0.3s ease;
+    }
+
+    .study-card.show {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .study-card-title {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--htb-cyan);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .study-word-hero {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding-bottom: 12px;
+      margin-bottom: 14px;
+    }
+
+    .study-en {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .study-es {
+      font-size: 1.2rem;
+      color: var(--htb-green);
+      margin-top: 4px;
+      font-weight: 600;
+    }
+
+    .study-detail-row {
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+    .study-detail-row strong {
+      color: #94a3b8;
+    }
+
+    .next-btn-container {
+      margin-top: 18px;
+      text-align: center;
+    }
+
+    .next-word-btn {
+      width: 100%;
+      background: var(--htb-cyan);
+      color: #0b0f19;
+      border: none;
+      font-weight: 800;
+      font-size: 1.05rem;
+      padding: 14px 28px;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 0 20px rgba(0, 229, 255, 0.35);
+      transition: all 0.2s;
+    }
+
+    .next-word-btn:hover {
+      background: #38bdf8;
+      transform: translateY(-2px);
+      box-shadow: 0 0 25px rgba(0, 229, 255, 0.5);
     }
 
     /* LEVEL MAP / SELECTOR */
@@ -468,7 +598,7 @@
     .modal-overlay {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.8);
+      background: rgba(0,0,0,0.85);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -607,8 +737,42 @@
               autofocus
             >
           </div>
-          <button id="submit-btn" class="submit-btn font-mono" onclick="checkAnswer()">VERIFICAR [ENTER]</button>
+
+          <div class="actions-row">
+            <button id="submit-btn" class="submit-btn font-mono" onclick="checkAnswer()">VERIFICAR [ENTER]</button>
+            <button id="reveal-btn" class="reveal-btn font-mono" onclick="userRevealAnswer()" title="Descubrir la palabra si no te la sabes">👁️ DESCUBRIR</button>
+          </div>
+
           <div id="feedback-text" class="feedback-msg font-mono"></div>
+
+          <!-- STUDY CARD (TARJETA DE APRENDIZAJE: NO AVANZA AUTOMÁTICO) -->
+          <div id="study-card" class="study-card font-mono">
+            <div class="study-card-title">
+              <span>📚 TARJETA DE APRENDIZAJE TÉCNICO</span>
+            </div>
+            <div class="study-word-hero">
+              <div>
+                <div id="study-term-en" class="study-en">WORD</div>
+                <div id="study-term-es" class="study-es">TRADUCCIÓN</div>
+              </div>
+              <button id="study-audio-btn" class="voice-btn" style="padding: 10px 16px; font-size: 1.4rem;" title="Escuchar pronunciación">🔊</button>
+            </div>
+            <div class="study-detail-row">
+              <strong>Categoría:</strong> <span id="study-pos">Verbo</span>
+            </div>
+            <div class="study-detail-row">
+              <strong>Uso en Hack The Box:</strong>
+              <div id="study-context-en" style="color: #fff; margin-top: 2px;"></div>
+              <div id="study-context-es" style="color: #94a3b8; font-size: 0.85rem;"></div>
+            </div>
+            <div class="study-detail-row" style="margin-top: 8px;">
+              <strong>Concepto clave:</strong> <span id="study-hint" style="color: var(--warning);"></span>
+            </div>
+
+            <div class="next-btn-container">
+              <button id="next-word-btn" class="next-word-btn font-mono" onclick="nextWord()">SIGUIENTE PALABRA [ENTER] ➡️</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -711,6 +875,11 @@
       playTone(180, 'sawtooth', 0.25, 0.1);
     }
 
+    function soundReveal() {
+      playTone(350, 'triangle', 0.12, 0);
+      playTone(450, 'triangle', 0.18, 0.1);
+    }
+
     function soundLevelUp() {
       playTone(440, 'triangle', 0.1, 0);
       playTone(554.37, 'triangle', 0.1, 0.08);
@@ -749,12 +918,15 @@
       speakEnglish(word.en);
     });
 
+    document.getElementById('study-audio-btn').addEventListener('click', () => {
+      const word = currentQuestion.word;
+      speakEnglish(word.en);
+    });
+
     /* ============================================================
        3. VOCABULARY GENERATION ENGINE (100 LEVELS x 12 WORDS = 1200)
-       Specially tailored for Hack The Box & Cybersecurity
+       Tailored for Hack The Box & Cybersecurity
        ============================================================ */
-    
-    // 10 Core Modules with 12 distinct entries each to seed and modulate
     const baseCurriculum = [
       // 1-10: Linux Basics & Command Line
       {
@@ -913,7 +1085,7 @@
           { en: "bloodhound", es: "bloodhound", alt: ["sabueso"], pos: "noun", exEn: "Analyze shortest path to Domain Admin using BloodHound.", exEs: "Analiza el camino más corto hacia Administrador de Dominio usando BloodHound.", hint: "Herramienta que mapea relaciones de Active Directory con grafos." },
           { en: "delegation", es: "delegación", alt: ["delegacion"], pos: "noun", exEn: "Unconstrained delegation allows ticket extraction.", exEs: "La delegación sin restricciones permite la extracción de boletos.", hint: "Capacidad de un servicio de hacerse pasar por un usuario ante otro." },
           { en: "roast", es: "asar", alt: ["tostar", "extraer hashes"], pos: "verb", exEn: "Roast AS-REP accounts that do not require pre-authentication.", exEs: "Asa cuentas AS-REP que no requieren pre-autenticación.", hint: "Término en AD para solicitar hashes y crackearlos (AS-REP roasting)." },
-          { en: "forest", es: "bosque", alt: ["bosque de dominios"], pos: "noun", exEn: "The forest root domain holds the Schema Master role.", es: "El dominio raíz del bosque posee el rol de Schema Master.", hint: "Conjunto de uno o más árboles de dominios en Active Directory." },
+          { en: "forest", es: "bosque", alt: ["bosque de dominios"], pos: "noun", exEn: "The forest root domain holds the Schema Master role.", exEs: "El dominio raíz del bosque posee el rol de Schema Master.", hint: "Conjunto de uno o más árboles de dominios en Active Directory." },
           { en: "share", es: "recurso compartido", alt: ["carpeta compartida", "share"], pos: "noun", exEn: "Enumerate anonymous SMB share access.", exEs: "Enumera acceso anónimo a recursos compartidos SMB.", hint: "Carpeta de red compartida mediante SMB o NFS." },
           { en: "poison", es: "envenenar", alt: ["intoxicar"], pos: "verb", exEn: "Poison LLMNR and NBT-NS queries using Responder.", exEs: "Envenena consultas LLMNR y NBT-NS usando Responder.", hint: "Enviar respuestas falsas para capturar hashes de red." }
         ]
@@ -939,15 +1111,13 @@
     ];
 
     // Build the full 100 levels dataset deterministically
-    // Each of the 100 levels has exactly 12 rich cybersecurity words!
     const LEVELS_DATABASE = [];
 
     for (let lvl = 1; lvl <= 100; lvl++) {
-      const moduleIdx = Math.floor((lvl - 1) / 10); // 0 to 9
+      const moduleIdx = Math.floor((lvl - 1) / 10);
       const baseModule = baseCurriculum[moduleIdx];
-      const screenInModule = ((lvl - 1) % 10) + 1; // 1 to 10
+      const screenInModule = ((lvl - 1) % 10) + 1;
 
-      // Rotate and generate 12 words with screen-specific twists
       const levelWords = baseModule.words.map((w, idx) => {
         return {
           id: `lvl${lvl}_w${idx+1}`,
@@ -961,7 +1131,6 @@
         };
       });
 
-      // Shift slightly per sub-level to provide dynamic order & challenge
       const shift = (screenInModule * 3) % 12;
       const rotatedWords = [...levelWords.slice(shift), ...levelWords.slice(0, shift)];
 
@@ -976,7 +1145,7 @@
     /* ============================================================
        4. GAME STATE & LOCALSTORAGE
        ============================================================ */
-    const STORAGE_KEY = 'htb_english_trainer_save_v1';
+    const STORAGE_KEY = 'htb_english_trainer_save_v2';
     let gameState = {
       currentLevel: 1,
       unlockedLevel: 1,
@@ -1000,7 +1169,7 @@
 
     loadSavedState();
 
-    // Round specific variables
+    // Round variables
     let currentScreenIndex = 0; // 0 to 11
     let lives = 3;
     let attempts = 3;
@@ -1021,7 +1190,18 @@
     const hintText = document.getElementById('hint-text');
     const userInput = document.getElementById('user-input');
     const submitBtn = document.getElementById('submit-btn');
+    const revealBtn = document.getElementById('reveal-btn');
     const feedbackText = document.getElementById('feedback-text');
+
+    // Study Card Elements
+    const studyCard = document.getElementById('study-card');
+    const studyTermEn = document.getElementById('study-term-en');
+    const studyTermEs = document.getElementById('study-term-es');
+    const studyPos = document.getElementById('study-pos');
+    const studyContextEn = document.getElementById('study-context-en');
+    const studyContextEs = document.getElementById('study-context-es');
+    const studyHint = document.getElementById('study-hint');
+    const nextWordBtn = document.getElementById('next-word-btn');
 
     /* ============================================================
        5. GAMEPLAY LOGIC
@@ -1048,7 +1228,6 @@
       wordIndexDisplay.textContent = currentScreenIndex + 1;
 
       const word = levelData.words[currentScreenIndex];
-      // Randomize direction or balance: 50% EN->ES, 50% ES->EN
       const askEnglish = (currentScreenIndex % 2 === 1); 
 
       currentQuestion = {
@@ -1065,6 +1244,11 @@
       updateAttemptDots();
 
       // UI setup
+      studyCard.classList.remove('show');
+      revealBtn.style.display = 'inline-block';
+      submitBtn.style.display = 'inline-block';
+      submitBtn.textContent = "VERIFICAR [ENTER]";
+
       if (askEnglish) {
         modeBadge.textContent = "TRADUCE AL INGLÉS (Término Técnico)";
         modeBadge.style.color = "var(--htb-green)";
@@ -1077,7 +1261,6 @@
         modeBadge.style.borderColor = "var(--htb-cyan)";
         targetClue.textContent = word.en;
         document.getElementById('audio-clue-btn').style.display = 'inline-block';
-        // Auto pronounce in English when prompt is in English!
         speakEnglish(word.en);
       }
 
@@ -1087,11 +1270,9 @@
 
       hintText.textContent = "";
       feedbackText.textContent = "";
-      feedbackText.style.color = "var(--text-main)";
       userInput.value = "";
       userInput.className = "answer-input font-mono";
       userInput.disabled = false;
-      submitBtn.textContent = "VERIFICAR [ENTER]";
       userInput.focus();
     }
 
@@ -1118,19 +1299,55 @@
       }
     }
 
-    // Normalized comparison: remove accents, trim, lowercase
     function normalizeStr(str) {
       return str
         .toLowerCase()
         .trim()
         .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "") // removes accents for friendly Spanish typing
+        .replace(/[\u0300-\u036f]/g, "")
         .replace(/[-_]/g, " ");
+    }
+
+    // Displays the rich study card and waits for manual "Siguiente Palabra"
+    function showStudyCard(statusMessage, statusColor) {
+      isQuestionResolved = true;
+      userInput.disabled = true;
+      revealBtn.style.display = 'none';
+      submitBtn.style.display = 'none';
+
+      feedbackText.style.color = statusColor;
+      feedbackText.textContent = statusMessage;
+
+      const w = currentQuestion.word;
+      studyTermEn.textContent = w.en;
+      studyTermEs.textContent = w.es;
+      studyPos.textContent = w.pos;
+      studyContextEn.textContent = `"${w.exEn}"`;
+      studyContextEs.textContent = `"${w.exEs}"`;
+      studyHint.textContent = w.hint;
+
+      studyCard.classList.add('show');
+      nextWordBtn.focus();
+      speakEnglish(w.en);
+    }
+
+    // User clicks "Descubrir Palabra"
+    function userRevealAnswer() {
+      if (isQuestionResolved) return;
+      soundReveal();
+      attempts = 0;
+      updateAttemptDots();
+      lives--;
+      updateHeader();
+
+      showStudyCard(
+        `💡 Palabra revelada. La respuesta es "${currentQuestion.expectedAnswer}". Tómate tu tiempo para memorizarla.`,
+        "var(--warning)"
+      );
     }
 
     function checkAnswer() {
       if (isQuestionResolved) {
-        // Advance to next word
         nextWord();
         return;
       }
@@ -1145,22 +1362,19 @@
       const isCorrect = currentQuestion.acceptedAnswers.some(ans => normalizeStr(ans) === normalizedInput);
 
       if (isCorrect) {
-        // SUCCESS!
+        // SUCCESS
         soundSuccess();
-        isQuestionResolved = true;
         const pts = attempts === 3 ? 100 : (attempts === 2 ? 50 : 25);
         gameState.totalScore += pts;
         updateHeader();
         saveState();
 
-        feedbackText.style.color = "var(--htb-green)";
-        feedbackText.textContent = `✓ ¡EXCELENTE! +${pts} pts. Respuesta correcta.`;
-        userInput.classList.add('correct');
-        userInput.disabled = true;
-        submitBtn.textContent = "CONTINUAR [ENTER]";
-        speakEnglish(currentQuestion.word.en);
+        showStudyCard(
+          `✓ ¡CORRECTO! (+${pts} puntos). Estudia los detalles antes de continuar.`,
+          "var(--htb-green)"
+        );
       } else {
-        // WRONG
+        // ERROR
         soundError();
         attempts--;
         updateAttemptDots();
@@ -1179,30 +1393,29 @@
           }
           userInput.select();
         } else {
-          // 0 ATTEMPTS LEFT -> LOSE LIFE
+          // 3 FAILS EXCEEDED -> CONSUME LIFE AND REVEAL
           lives--;
           updateHeader();
-          isQuestionResolved = true;
 
-          feedbackText.style.color = "var(--danger)";
-          feedbackText.textContent = `✗ Agotaste tus intentos. La respuesta correcta era: "${currentQuestion.expectedAnswer.toUpperCase()}".`;
-          userInput.disabled = true;
-          submitBtn.textContent = "CONTINUAR [ENTER]";
-          speakEnglish(currentQuestion.word.en);
-
-          if (lives <= 0) {
-            soundGameOver();
-            setTimeout(showGameOverModal, 600);
-            return;
-          }
+          showStudyCard(
+            `✗ Agotaste tus 3 intentos. La solución correcta era "${currentQuestion.expectedAnswer}".`,
+            "var(--danger)"
+          );
         }
       }
     }
 
     function nextWord() {
+      // Check if player ran out of lives on this word
+      if (lives <= 0) {
+        soundGameOver();
+        showGameOverModal();
+        return;
+      }
+
       currentScreenIndex++;
       if (currentScreenIndex >= 12) {
-        // SCREEN / LEVEL COMPLETED!
+        // SCREEN COMPLETED
         completeLevel();
       } else {
         loadWord();
@@ -1226,8 +1439,8 @@
       title.textContent = "¡PANTALLA COMPLETADA!";
       stats.innerHTML = `
         ¡Excelente trabajo, hacker!<br>
-        Has dominado las 12 palabras de la <strong>Pantalla ${gameState.currentLevel}</strong>.<br>
-        Puntuación Acumulada: <strong>${gameState.totalScore} pts</strong>.<br>
+        Has completado las 12 palabras de la <strong>Pantalla ${gameState.currentLevel}</strong>.<br>
+        Puntuación acumulada: <strong>${gameState.totalScore} pts</strong>.<br>
         Vidas restantes: <strong>${lives}/3</strong>
       `;
       btn.textContent = gameState.currentLevel < 100 ? "SIGUIENTE PANTALLA" : "¡HAS COMPLETADO LOS 100 NIVELES!";
@@ -1252,7 +1465,7 @@
       title.textContent = "¡MISIÓN FALLIDA!";
       stats.innerHTML = `
         Te has quedado sin vidas en la <strong>Pantalla ${gameState.currentLevel}</strong>.<br>
-        ¡No te rindas! El aprendizaje de inglés técnico para HTB requiere práctica constante.
+        ¡No te preocupes! El aprendizaje de inglés técnico para HTB requiere repetición.
       `;
       btn.textContent = "REINTENTAR PANTALLA";
       btn.onclick = () => {
@@ -1266,10 +1479,14 @@
       document.getElementById('modal-screen').classList.remove('show');
     }
 
-    // Keyboard listener: ENTER to submit or continue
-    userInput.addEventListener('keydown', (e) => {
+    // Keyboard listener: ENTER to verify or to advance to next word
+    window.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
-        checkAnswer();
+        if (isQuestionResolved) {
+          nextWord();
+        } else {
+          checkAnswer();
+        }
       }
     });
 
@@ -1283,7 +1500,7 @@
       if (tabName === 'game') {
         document.querySelector('.tab-btn:nth-child(1)').classList.add('active');
         document.getElementById('game-view').classList.add('active');
-        userInput.focus();
+        if (!isQuestionResolved) userInput.focus();
       } else if (tabName === 'levels') {
         document.querySelector('.tab-btn:nth-child(2)').classList.add('active');
         document.getElementById('levels-view').classList.add('active');
@@ -1328,7 +1545,6 @@
       tbody.innerHTML = '';
       const query = filter.toLowerCase().trim();
 
-      // Collect all words across all levels
       let allWords = [];
       LEVELS_DATABASE.forEach(l => {
         l.words.forEach(w => {
@@ -1336,7 +1552,6 @@
         });
       });
 
-      // Filter
       const matched = allWords.filter(item => {
         if (!query) return true;
         return item.en.toLowerCase().includes(query) || 
@@ -1344,7 +1559,6 @@
                (item.hint && item.hint.toLowerCase().includes(query));
       });
 
-      // Render top 150 matching to maintain ultra-fast scrolling
       matched.slice(0, 150).forEach(item => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
