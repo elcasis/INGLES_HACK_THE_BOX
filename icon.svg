@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#050c1a"/>
+      <stop offset="100%" stop-color="#021b3a"/>
+    </linearGradient>
+    <linearGradient id="iconBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a1931"/>
+      <stop offset="50%" stop-color="#00264d"/>
+      <stop offset="100%" stop-color="#001226"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3.5" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="shadow" x="-10%" y="-10%" width="130%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#000" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+
+  <!-- Fondo difuminado -->
+  <rect width="512" height="512" fill="url(#bg)"/>
+
+  <!-- Iconos genéricos desenfocados en el fondo -->
+  <g opacity="0.18" filter="blur(14px)">
+    <rect x="25" y="35" width="85" height="85" rx="22" fill="#9fef00"/>
+    <rect x="400" y="45" width="85" height="85" rx="22" fill="#00e5ff"/>
+    <rect x="20" y="360" width="85" height="85" rx="22" fill="#ff007f"/>
+    <rect x="405" y="350" width="85" height="85" rx="22" fill="#ffb703"/>
+  </g>
+
+  <!-- Icono principal cuadrado con esquinas redondeadas (Squircle) -->
+  <g filter="url(#shadow)">
+    <rect x="106" y="45" width="300" height="300" rx="68" fill="url(#iconBg)" stroke="#00e5ff" stroke-width="2.5" stroke-opacity="0.45"/>
+  </g>
+
+  <!-- Circuitos y conexiones -->
+  <g stroke="#00e5ff" stroke-width="1.8" opacity="0.45" fill="none">
+    <path d="M145,105 L185,105 L205,125"/>
+    <circle cx="145" cy="105" r="3.5" fill="#00e5ff"/>
+    <path d="M367,105 L327,105 L307,125"/>
+    <circle cx="367" cy="105" r="3.5" fill="#00e5ff"/>
+    <path d="M140,225 L180,225 L195,245"/>
+    <circle cx="140" cy="225" r="3.5" fill="#9fef00"/>
+    <path d="M372,225 L332,225 L317,245"/>
+    <circle cx="372" cy="225" r="3.5" fill="#9fef00"/>
+  </g>
+
+  <!-- Escudo geométrico central -->
+  <path d="M 256,95 L 335,130 L 322,235 L 256,285 L 190,235 L 177,130 Z" 
+        fill="#002b4d" fill-opacity="0.65" stroke="#00e5ff" stroke-width="3.5" filter="url(#glow)"/>
+  <path d="M 256,115 L 315,142 L 305,225 L 256,265 L 207,225 L 197,142 Z" 
+        fill="none" stroke="#9fef00" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.8"/>
+
+  <!-- Términos técnicos clave -->
+  <text x="256" y="132" text-anchor="middle" fill="#9fef00" font-family="'Fira Code', monospace, sans-serif" font-size="10" font-weight="800" letter-spacing="2">CODE</text>
+  <text x="304" y="165" text-anchor="middle" fill="#00e5ff" font-family="'Fira Code', monospace, sans-serif" font-size="9" font-weight="700">NETWORK</text>
+  <text x="300" y="245" text-anchor="middle" fill="#9fef00" font-family="'Fira Code', monospace, sans-serif" font-size="9.5" font-weight="700">DATA</text>
+  <text x="256" y="255" text-anchor="middle" fill="#00e5ff" font-family="'Fira Code', monospace, sans-serif" font-size="11" font-weight="800" letter-spacing="1.5">API</text>
+  <text x="212" y="245" text-anchor="middle" fill="#9fef00" font-family="'Fira Code', monospace, sans-serif" font-size="9" font-weight="700">QUERY</text>
+  <text x="208" y="165" text-anchor="middle" fill="#00e5ff" font-family="'Fira Code', monospace, sans-serif" font-size="9" font-weight="700">DEBUG</text>
+
+  <!-- Texto central ENG -->
+  <text x="256" y="208" text-anchor="middle" fill="#ffffff" font-family="'Inter', sans-serif" font-size="56" font-weight="900" letter-spacing="3">ENG</text>
+
+  <!-- Texto inferior rotulado -->
+  <text x="256" y="410" text-anchor="middle" fill="#ffffff" font-family="'Inter', sans-serif" font-size="17" font-weight="800" letter-spacing="2">INGLÉS TÉCNICO</text>
+  <text x="256" y="435" text-anchor="middle" fill="#00e5ff" font-family="'Inter', sans-serif" font-size="15" font-weight="700" letter-spacing="2.5">DE INFORMÁTICA</text>
+</svg>
